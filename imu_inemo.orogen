@@ -6,7 +6,7 @@ task_context "Task" do
     subclasses "iodrivers_base::Task"
 
     output_port "orientation", "/base/samples/RigidBodyState"
-    output_port "marg", "/base/samples/IMUSensors"
+    output_port "sensors", "/base/samples/IMUSensors"
 
     fd_driven
 end

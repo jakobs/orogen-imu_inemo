@@ -39,6 +39,7 @@ bool Task::configureHook()
     imu_inemo::output_mode mode;
     mode.setMAG();
     mode.setACC();
+    mode.setGYRO();
     mode.setAHRS();
     mode.setFrequency( imu_inemo::output_mode::HZ_100 );
     mDriver->setOutputMode( mode );
@@ -78,10 +79,19 @@ void Task::processIO()
     imu_inemo::sensor_data data;
     mDriver->getSensorData( data );
 
+    // write the orientation from the AHRS
     base::samples::RigidBodyState rbs;
-    rbs.orientation = 
-        base::Quaterniond( 
-                data.quat[0], data.quat[1], data.quat[2], data.quat[3] );
+    rbs.time = base::Time::now();
+    rbs.orientation = data.getOrientation();
 
     _orientation.write( rbs );
+
+    // write the raw sensor data
+    base::samples::IMUSensors sensors;
+    sensors.time = base::Time::now();
+    sensors.acc = data.getAccelerometer();
+    sensors.gyro = data.getGyro();
+    sensors.mag = data.getMagnetometer();
+
+    _sensors.write( sensors );
 }
