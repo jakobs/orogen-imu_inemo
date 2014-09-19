@@ -1,0 +1,11 @@
+<package>
+  <description brief="Orogen task for ST inemo based IMUs.">
+  This orogen task uses the driver for the inemo demo protocol, which e.g. runs on the stock firmware of the iNemo-M1 board from ST.
+  </description>
+  <author>Jakob Schwendner/jakob.schwendner@dfki.de</author>
+  <license></license>
+  <url>http://</url>
+  <logo>http://</logo>
+  <depend package="base/cmake" />
+  <depend package="drivers/orogen/iodrivers_base" />
+</package>
